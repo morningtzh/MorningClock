@@ -69,7 +69,8 @@ extern "C" [[maybe_unused]] void app_main(void) {
     REGISTER_LIGHT_MODE(HSVRing);
     REGISTER_LIGHT_MODE(Test);
     REGISTER_LIGHT_MODE(Single);
+    REGISTER_LIGHT_MODE(Screen);
 
     ESP_LOGI(MODULE, "Will start light");
-    light::manager()->SetMode("HSVRing");
+    light::manager()->SetMode("Screen");
 }

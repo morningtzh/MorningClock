@@ -4,6 +4,7 @@
 
 #include "../light.hpp"
 #include "../mode.hpp"
+#include "../../clock/ui/screen.hpp"
 
 namespace light::mode {
 
@@ -38,6 +39,34 @@ namespace light::mode {
             {"OutsideRingDirect", {COUNTERCLOCKWISE}},
             {"InsideRingStep",    {1}},
             {"OutsideRingStep",   {2}},
+    };
+
+
+/***************** Screen Mode *************/
+    class Screen : public Mode {
+    private:
+        screen::Screen *screen
+
+        bool transBuffer() {
+            auto screenBuffer = screen->GetBuffer()
+
+            
+            lightBuffer.SetRGB(INSIDE_RING, i, 0,0,0);
+        }
+
+    public:
+        [[maybe_unused]] explicit Screen(LightBuffer &lightBuffer, bool start) : Mode(lightBuffer) {
+            
+            screen = new screen::Screen();
+
+
+        }
+
+        void CalculateNext() override {
+            for (int i = 0; i < LIGHT_INSIDE_POINTS; i++) {
+                lightBuffer.SetHSV(INSIDE_RING, i, hue++, 255, 255);
+            }
+        }
     };
 
 /***************** Test Mode *************/

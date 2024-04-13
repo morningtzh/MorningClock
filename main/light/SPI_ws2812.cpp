@@ -16,7 +16,7 @@ Ws2812Spi::Ws2812Spi(int pin, int ledNum, light::RGB *buffer) : pin(pin), ledNum
     spiSettings.buscfg.mosi_io_num = pin;
     spiSettings.buscfg.max_transfer_sz = dmaSize;
     spiSettings.host = SPI_USED == 0 ? SPI2_HOST : SPI3_HOST;
-    spiSettings.dma_chan = SPI_USED == 0 ? SPI_DMA_CH1 : SPI_DMA_CH2;
+    spiSettings.dma_chan = SPI_DMA_CH_AUTO;//SPI_USED == 0 ? SPI_DMA_CH1 : SPI_DMA_CH2;
     SPI_USED++;
 
     esp_err_t err;

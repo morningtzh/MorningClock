@@ -36,7 +36,7 @@ private:
     static bool spiInit;
 
     SPISettings spiSettings{
-            .host = HSPI_HOST,
+            .host = SPI3_HOST,//HSPI_HOST,
             .dma_chan = SPI_DMA_CH_AUTO,
             .devcfg {
                     .command_bits = 0,
