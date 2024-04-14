@@ -9,9 +9,9 @@
 
 int SPI_USED = 0;
 
-Ws2812Spi::Ws2812Spi(int pin, int ledNum, light::RGB *buffer) : pin(pin), ledNum(ledNum),
-                                                                dmaSize(((ledNum * 16 * (24 / 4))) + 1),
-                                                                buffer(buffer) {
+Ws2812Spi::Ws2812Spi(int pin, int ledNum, RGB8 *buffer) : pin(pin), ledNum(ledNum),
+                                                                 dmaSize(((ledNum * 16 * (24 / 4))) + 1),
+                                                                 buffer(buffer) {
 
     spiSettings.buscfg.mosi_io_num = pin;
     spiSettings.buscfg.max_transfer_sz = dmaSize;

@@ -1,23 +1,37 @@
+#include "../../base.hpp"
+#include "components/component.hpp"
 
-
-namespace screen
-{
+namespace screen {
     constexpr unsigned short width = 32;
     constexpr unsigned short height = 8;
 
-    struct RGB8
-    {
-        uint8_t r,g,b;
-    };
+    typedef bool (*Render)(int, int);
 
-    class Screen
-    {
+    class Screen {
     private:
-        RGB8 *buffer[width][height];
+        RGB8 **buffer;
+        Drawer *drawer;
+        bool dirty = true;
+        MainComponent *mainComponent;
 
     public:
-        int *GetBuffer();
+        Size size {
+            width, height
+        };
+        RGB8 *GetPoint(uint x, uint y);
+
+        RGB8 **GetBuffer() {
+            return buffer;
+        }
+
+        bool isDirty() {
+            return dirty;
+        }
+
         Screen(/* args */);
+
+        bool Update();
+
         ~Screen();
     };
 

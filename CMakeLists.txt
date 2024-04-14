@@ -9,6 +9,7 @@ execute_process(COMMAND  "date" "+%s" OUTPUT_VARIABLE timestamp OUTPUT_STRIP_TRA
 MESSAGE(STATUS "Start Config ${timestamp} ${CMAKE_CURRENT_SOURCE_DIR}" )
 set(EDIT_WARNING "/**** 本头文件为CMake生成文件，请修改相应 .in 文件 ****/")
 
+# 配置版本号到 global.hpp
 set(VERSION_MAJOR 1 CACHE INTERNAL VersionMajor)
 set(VERSION_MINOR 1 CACHE INTERNAL VersionMinor)
 set(VERSION_PATCH 0 CACHE INTERNAL VersionPatch)
@@ -20,5 +21,10 @@ execute_process(COMMAND  "echo" "v${PROJECT_VER}" OUTPUT_FILE "version.txt" OUTP
 configure_file(main/utils/global.hpp.in ../main/utils/global.hpp)
 MESSAGE("End Config")
 
+MESSAGE("IDF" $ENV{IDF_PATH})
+MESSAGE("IDF" $idf_path)
+MESSAGE("IDF" $ENV{IDF_PATH})
+
 include($ENV{IDF_PATH}/tools/cmake/project.cmake)
+#include(/Users/morningtzh/esp/v5.2.1/esp-idf/tools/cmake/project.cmake)
 project(MorningRing)

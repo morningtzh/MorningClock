@@ -1,6 +1,8 @@
 //
 // Created by MorningTZH on 2023/1/22.
 //
+#ifndef MORNINGRING_COMMON_MODE_HPP
+#define MORNINGRING_COMMON_MODE_HPP
 
 #include "../light.hpp"
 #include "../mode.hpp"
@@ -34,41 +36,22 @@ namespace light::mode {
         }
     };
 
-    ConfigData HSVRing::defaultConfig{
-            {"InsideRingDirect",  {CLOCKWISE}},
-            {"OutsideRingDirect", {COUNTERCLOCKWISE}},
-            {"InsideRingStep",    {1}},
-            {"OutsideRingStep",   {2}},
-    };
+
 
 
 /***************** Screen Mode *************/
     class Screen : public Mode {
     private:
-        screen::Screen *screen
+        screen::Screen *screen;
+        RGB8 **screenBuffer;
 
-        bool transBuffer() {
-            auto screenBuffer = screen->GetBuffer()
-
-            
-            lightBuffer.SetRGB(INSIDE_RING, i, 0,0,0);
-        }
+        bool transBuffer() ;
 
     public:
-        [[maybe_unused]] explicit Screen(LightBuffer &lightBuffer, bool start) : Mode(lightBuffer) {
-            
-            screen = new screen::Screen();
+        [[maybe_unused]] explicit Screen(LightBuffer &lightBuffer, bool start);
 
-
-        }
-
-        void CalculateNext() override {
-            for (int i = 0; i < LIGHT_INSIDE_POINTS; i++) {
-                lightBuffer.SetHSV(INSIDE_RING, i, hue++, 255, 255);
-            }
-        }
+        void CalculateNext() override;
     };
-
 /***************** Test Mode *************/
     class Test : public Mode {
     private:
@@ -88,6 +71,7 @@ namespace light::mode {
         }
     };
 
+/***************** Single Mode *************/
     class Single : public Mode {
     private:
         int rgb = 0;
@@ -115,3 +99,5 @@ namespace light::mode {
         }
     };
 }  // namespace light::mode
+
+#endif

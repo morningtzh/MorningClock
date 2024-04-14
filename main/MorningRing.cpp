@@ -53,17 +53,17 @@ extern "C" [[maybe_unused]] void app_main(void) {
 
     xTaskCreate(blink, "Blink", 10 * 1024, nullptr, 20, nullptr);
 
-    ESP_LOGI(MODULE, "Will init WIFI");
-    wifi_init_sta();
-
-    ESP_LOGI(MODULE, "Will init mDNS");
-    mdns_init_services();
-
-    ESP_LOGI(MODULE, "Will init NTP");
-    init_ntp();
-
-    ESP_LOGI(MODULE, "Will init API");
-    InitApi();
+//    ESP_LOGI(MODULE, "Will init WIFI");
+//    wifi_init_sta();
+//
+//    ESP_LOGI(MODULE, "Will init mDNS");
+//    mdns_init_services();
+//
+//    ESP_LOGI(MODULE, "Will init NTP");
+//    init_ntp();
+//
+//    ESP_LOGI(MODULE, "Will init API");
+//    InitApi();
 
     ESP_LOGI(MODULE, "Will Register Light Mode");
     REGISTER_LIGHT_MODE(HSVRing);

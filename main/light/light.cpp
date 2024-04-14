@@ -81,6 +81,7 @@ namespace light {
 
             manager()->TxWs2812();
 
+            // TODO: Refresh Event
             vTaskDelay(pdMS_TO_TICKS(EXAMPLE_CHASE_SPEED_MS));
         }
     }

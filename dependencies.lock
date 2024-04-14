@@ -1,21 +1,45 @@
 dependencies:
+  espressif/cmake_utilities:
+    component_hash: 351350613ceafba240b761b4ea991e0f231ac7a9f59a9ee901f751bddc0bb18f
+    source:
+      service_url: https://api.components.espressif.com/
+      type: service
+    version: 0.5.3
+  espressif/esp-dsp:
+    component_hash: 3e7bbd487f1357a1d4944d0c85966d049501ea281b8a4c7f93f7cfedd5b7f23d
+    source:
+      service_url: https://api.components.espressif.com/
+      type: service
+    version: 1.4.12
   espressif/esp-idf-cxx:
     component_hash: 2fa63e4e725f0c2d3dd6d99da8a91d404b4b49667088b1be0f336eb9c13ff17f
     source:
       service_url: https://api.components.espressif.com/
       type: service
     version: 1.0.2-beta
+  espressif/esp-sr:
+    component_hash: f2e0e9316ecd263a43f1a0f41578cd363bb41d77b78f8944e0a721232ecb84fc
+    source:
+      service_url: https://api.components.espressif.com/
+      type: service
+    version: 1.7.0
   espressif/mdns:
     component_hash: 9ff9c578fc3a5ea3c68e807233e47f2ce6b2492a92d7a9356ae5c29ab45f0fde
     source:
       service_url: https://api.components.espressif.com/
       type: service
     version: 1.3.0
+  espressif/openai:
+    component_hash: 701ae7fd9226d8c02c51d252a57ff5aafd0be1ea7955e7c785e46ab6295d58d8
+    source:
+      service_url: https://api.components.espressif.com/
+      type: service
+    version: 0.3.1
   idf:
     component_hash: null
     source:
       type: idf
     version: 5.2.1
-manifest_hash: 67ed64071df4a2b6a0ae4f0cf0c048afdf87187323671208f156682d31718bf5
+manifest_hash: f2ea740419308c7ca640427874fc72b552acb0da30a133957ce3db4f3f3610a6
 target: esp32s3
 version: 1.0.0

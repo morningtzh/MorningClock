@@ -29,7 +29,7 @@ private:
     int pin;
     int ledNum;
     int dmaSize;
-    light::RGB *buffer;
+    RGB8 *buffer;
     uint16_t *ledDMAbuffer;
     float powerLimit = MAX_POWER_LIMIT;
 
@@ -56,7 +56,7 @@ private:
             },
     };
 public:
-    Ws2812Spi(int pin, int ledNum, light::RGB *buffer);
+    Ws2812Spi(int pin, int ledNum, RGB8 *buffer);
     void led_strip_update();
     void SetPower(float powerPercent) {
         powerLimit = powerPercent * MAX_POWER_LIMIT;

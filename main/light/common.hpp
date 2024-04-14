@@ -6,9 +6,11 @@
 #define MORNINGRING_COMMON_HPP
 
 #include <list>
+#include <cstring>
 
 #include "esp_log.h"
 #include "fast_hsv2rgb.h"
+#include "../base.hpp"
 
 #define INSIDE_RING 0
 #define OUTSIDE_RING 1
@@ -18,28 +20,30 @@
 
 namespace light {
 
-    const int LIGHT_INSIDE_POINTS = 182;
+    const int LIGHT_INSIDE_POINTS = 64 * 4;
     const int LIGHT_OUTSIDE_POINTS = 184;
-
-    struct RGB {
-        uint8_t r,g,b;
-    };
 
     struct LightBuffer {
         // RGB三倍buffer
-        RGB inside[LIGHT_INSIDE_POINTS];
-        RGB outside[LIGHT_OUTSIDE_POINTS];
+        RGB8 inside[LIGHT_INSIDE_POINTS];
+        RGB8 outside[LIGHT_OUTSIDE_POINTS];
 
         void SetRGB(int side, int index, uint8_t r, uint8_t g, uint8_t b) {
-            RGB *buffer = side == INSIDE_RING ? inside : outside;
+            RGB8 *buffer = side == INSIDE_RING ? inside : outside;
 
             buffer[index].r = r;
             buffer[index].g = g;
             buffer[index].b = b;
         }
 
+        void SetRGB(int side, int index, RGB8 *rgb) {
+            RGB8 *buffer = side == INSIDE_RING ? inside : outside;
+
+            memcpy(&(buffer[index]), rgb, sizeof(RGB8));
+        }
+
         void GetRGB(int side, int index, uint8_t &r, uint8_t &g, uint8_t &b) {
-            RGB *buffer = side == INSIDE_RING ? inside : outside;
+            RGB8 *buffer = side == INSIDE_RING ? inside : outside;
 
             r = buffer[index].r;
             g = buffer[index].g;
@@ -50,7 +54,7 @@ namespace light {
             uint8_t r, g, b;
             fast_hsv2rgb_8bit(h, s, v, &r, &g, &b);
 
-            RGB *buffer = side == INSIDE_RING ? inside : outside;
+            RGB8 *buffer = side == INSIDE_RING ? inside : outside;
 
             buffer[index].r = r;
             buffer[index].g = g;
@@ -65,8 +69,8 @@ namespace light {
                 ESP_LOGE("LightBuf", "Input invaild %d, %d, %d", side, direction, step);
             }
 
-            RGB *buffer = side == INSIDE_RING ? inside : outside;
-            std::list<RGB> pool;
+            RGB8 *buffer = side == INSIDE_RING ? inside : outside;
+            std::list<RGB8> pool;
             int len = side == INSIDE_RING ? LIGHT_INSIDE_POINTS : LIGHT_OUTSIDE_POINTS;
 
             if (direction == CLOCKWISE) {
@@ -105,4 +109,4 @@ namespace light {
     };
 }
 
-#endif //MORNINGRING_COMMON_HPP
+#endif //MORNINGRING_BASE_HPP
