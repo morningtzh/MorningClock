@@ -27,7 +27,7 @@ idf_component_register(
 
         INCLUDE_DIRS
         "."
-        "./network"
+        "system"
         "./api"
         "./light"
         "./light/modes"
