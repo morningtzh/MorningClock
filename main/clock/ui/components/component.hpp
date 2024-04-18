@@ -54,6 +54,10 @@ public:
 
     const Size &GetSize();
 
+    const Point &GetAbsolutLocation();
+
+    const Point &GetRelativeLocation();
+
 
     bool DrawRGB(Point &p, RGB8 &rgb);
 //
@@ -64,14 +68,15 @@ public:
 
     bool SetHSV(Point &p, uint16_t h, uint8_t s, uint8_t v);
 
+    bool DrawBuffer(const Size &s, RGB8 **buffer);
 };
 
 class BaseComponent {
 private:
     std::list<BaseComponent *>  sons;
-    bool dirty = true;
 
 protected:
+    bool dirty = true;
     Drawer *drawer;
 
 public:
@@ -101,6 +106,24 @@ public:
 
     bool Update() override;
 };
+
+class CPoint: public BaseComponent {
+
+private:
+
+    RGB8 rgb {0,0,0};
+
+public:
+    explicit CPoint(Drawer *d): BaseComponent(d){}
+
+    CPoint(Point location, Size s, BaseComponent *p);
+
+
+    void SetColor(uint8_t r, uint8_t g, uint8_t b);
+
+    bool Update() override;
+};
+
 
 
 #endif //MORNINGRING_COMPONENT_HPP
