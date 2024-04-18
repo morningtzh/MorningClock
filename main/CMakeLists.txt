@@ -49,6 +49,8 @@ idf_component_register(
         #        ESP32-NeoPixel-WS2812-RMT
 )
 
+fatfs_create_partition_image(assets assets FLASH_IN_PROJECT PRESERVE_TIME)
+
 target_compile_options(${COMPONENT_LIB} PUBLIC -std=gnu++2b)
 
 

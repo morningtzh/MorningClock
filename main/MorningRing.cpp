@@ -66,6 +66,8 @@ extern "C" [[maybe_unused]] void app_main(void) {
 //    ESP_LOGI(MODULE, "Will init API");
 //    InitApi();
 
+    SpiflasfFatFsInit(ASSETS_PARTITION);
+
     ESP_LOGI(MODULE, "Will Register Light Mode");
     REGISTER_LIGHT_MODE(HSVRing);
     REGISTER_LIGHT_MODE(Test);
