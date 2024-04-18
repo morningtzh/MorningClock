@@ -84,6 +84,25 @@ bool Drawer::DrawRGB(Point &p, RGB8 &rgb) {
     return true;
 }
 
+bool Drawer::DrawBuffer(const Size &s, RGB8 **b) {
+
+    if (s >= _size) {
+        ESP_LOGE(MODULE, "draw buffer %s outside %s", s.toString().c_str(), _size.toString().c_str());
+        return false;
+    }
+
+    for (int i = 0; i < s.w; ++i) {
+        for (int j = 0; j < s.h; ++j) {
+            auto absolutionPoint = _absolutLocation + Point(i,j);
+
+            memcpy(&(buffer[absolutionPoint.x][absolutionPoint.y]), &(b[i][j]), sizeof(RGB8));
+        }
+    }
+
+
+    return true;
+}
+
 const Size &Drawer::GetSize() {
     return _size;
 }
@@ -93,6 +112,14 @@ bool Drawer::SetHSV(Point &p, uint16_t h, uint8_t s, uint8_t v) {
     fast_hsv2rgb_8bit(h, s, v, &rgb.r, &rgb.g, &rgb.b);
 
     return DrawRGB(p, rgb);
+}
+
+const Point &Drawer::GetAbsolutLocation() {
+    return _absolutLocation;
+}
+
+const Point &Drawer::GetRelativeLocation() {
+    return _relativeLocation;
 }
 
 
@@ -125,4 +152,22 @@ bool MainComponent::Update() {
     }
 
     return BaseComponent::Update();
+}
+
+bool CPoint::Update() {
+
+    auto p = Point(0,0);
+    drawer->DrawRGB(p, rgb);
+
+    return BaseComponent::Update();
+}
+
+void CPoint::SetColor(uint8_t r, uint8_t g, uint8_t b) {
+rgb.r = r;
+rgb.g = g;
+rgb.b = b;
+}
+
+CPoint::CPoint(Point location, Size s, BaseComponent *p) : BaseComponent(location, s, p) {
+
 }
