@@ -9,7 +9,8 @@
 #include "freertos/task.h"
 
 #include "utils/global.hpp"
-#include "network/network.hpp"
+#include "system/network.hpp"
+#include "system/storage.hpp"
 #include "light/light.hpp"
 #include "light/modes/common_modes.hpp"
 #include "api/api_register.hpp"
