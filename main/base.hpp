@@ -13,15 +13,21 @@
 struct Size {
     uint16_t w, h;
 
-    std::string toString();
+    const std::string toString() const;
 
     bool operator<(const Size &b) const;
+
+    bool operator>(const Size &b) const;
+
+    bool operator<=(const Size &b) const;
+
+    bool operator>=(const Size &b) const;
 };
 
 struct Point {
     uint16_t x, y;
 
-    std::string toString() {
+    std::string toString() const {
         return std::format("Point[{},{}]", x, y);
     }
 
@@ -44,6 +50,8 @@ struct RGB8 {
     uint8_t r, g, b;
     RGB8():r(0), g(0), b(0){}
     RGB8(uint8_t r,uint8_t g,uint8_t b):r(r), g(g), b(b){}
+
+    static RGB8 **MakeMartix(Size size);
 };
 
 #endif //MORNINGRING_BASE_HPP
