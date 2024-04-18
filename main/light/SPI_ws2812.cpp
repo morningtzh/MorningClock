@@ -62,12 +62,12 @@ void Ws2812Spi::led_strip_update() {
         auto b = (uint8_t)(buffer[i].b * powerLimit);
 
         //R
-        ledDMAbuffer[n++] = LedBitPattern[0x0f & (r >> 4)];
-        ledDMAbuffer[n++] = LedBitPattern[0x0f & (r)];
-
-        //G
         ledDMAbuffer[n++] = LedBitPattern[0x0f & (g >> 4)];
         ledDMAbuffer[n++] = LedBitPattern[0x0f & (g)];
+
+        //G
+        ledDMAbuffer[n++] = LedBitPattern[0x0f & (r >> 4)];
+        ledDMAbuffer[n++] = LedBitPattern[0x0f & (r)];
 
         //B
         ledDMAbuffer[n++] = LedBitPattern[0x0f & (b >> 4)];

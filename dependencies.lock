@@ -23,6 +23,12 @@ dependencies:
       service_url: https://api.components.espressif.com/
       type: service
     version: 1.7.0
+  espressif/libpng:
+    component_hash: d2fb0a8234e65fa7dd0bd80841e955c53557b70ef405dbb2290303ae2f4219bd
+    source:
+      service_url: https://api.components.espressif.com/
+      type: service
+    version: 1.6.39~1
   espressif/mdns:
     component_hash: 9ff9c578fc3a5ea3c68e807233e47f2ce6b2492a92d7a9356ae5c29ab45f0fde
     source:
@@ -35,11 +41,17 @@ dependencies:
       service_url: https://api.components.espressif.com/
       type: service
     version: 0.3.1
+  espressif/zlib:
+    component_hash: 999ec50086ac1c82b8321d8f540dc9fd10f5622948b935558aa16b4b66e95d9d
+    source:
+      service_url: https://api.components.espressif.com/
+      type: service
+    version: 1.3.0
   idf:
     component_hash: null
     source:
       type: idf
     version: 5.2.1
-manifest_hash: f2ea740419308c7ca640427874fc72b552acb0da30a133957ce3db4f3f3610a6
+manifest_hash: 1ab80cdf0247ee8e91eae47e27b35911eb6289759c74ded08715fb9a2f4ae26f
 target: esp32s3
 version: 1.0.0
