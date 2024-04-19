@@ -90,6 +90,22 @@ int PngReadPart(const char *path, Point &p, Size &s, RGB8 **buffer)
     switch (color_type)
     {
         case PNG_COLOR_TYPE_RGB_ALPHA:
+        {
+            for (int j = 0; j < s.h; j++)
+            {
+                for (int i = 0; i < s.w; i++)
+                {
+                    if (row_pointers[i + p.y][4 * (j + p.x) + 3] == 3) {
+                        buffer[(s.h-1)-j][i].mask = true;
+                    }
+                    buffer[(s.h-1)-j][i].mask = false;
+                    buffer[(s.h-1)-j][i].r = row_pointers[i + p.y][4 * (j + p.x) + 0];
+                    buffer[(s.h-1)-j][i].g = row_pointers[i + p.y][4 * (j + p.x) + 1];
+                    buffer[(s.h-1)-j][i].b = row_pointers[i + p.y][4 * (j + p.x) + 2];
+                }
+            }
+            break;
+        }
         case PNG_COLOR_TYPE_RGB:
         {
             for (int j = 0; j < s.h; j++)

@@ -60,15 +60,12 @@ public:
 
 
     bool DrawRGB(Point &p, RGB8 &rgb);
-//
-//    RGB8 &GetRGB(Point &p) {
-//
-//        return buffer[p.x][p.y];
-//    }
 
     bool SetHSV(Point &p, uint16_t h, uint8_t s, uint8_t v);
 
-    bool DrawBuffer(const Size &s, RGB8 **buffer);
+    bool DrawBuffer(const Size &s, RGB8 **b);
+
+    bool Clear();
 };
 
 class BaseComponent {
