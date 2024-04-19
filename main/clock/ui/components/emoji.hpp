@@ -21,6 +21,7 @@ class Emoji : public BaseComponent {
 private:
     EmojiName emoji;
     RGB8 **buffer = nullptr;
+    uint8_t **alpha = nullptr;
 
 public:
     Emoji(Point location, Size s, BaseComponent *p);

@@ -7,6 +7,6 @@
 
 #include "../base.hpp"
 
-int PngReadPart(const char *path, Point &p, Size &s, RGB8 **buffer);
+int PngReadPart(const char *path, Point &p, Size &s, RGB8 **buffer, uint8_t **alpha = nullptr);
 
 #endif //MORNINGRING_PNG_READER_HPP

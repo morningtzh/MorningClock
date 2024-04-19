@@ -12,7 +12,7 @@ static const char *MODULE = "UIEmoji";
 
 bool Emoji::Update() {
 
-    drawer->DrawBuffer(GetSize(), buffer);
+    drawer->DrawBuffer(GetSize(), buffer, alpha);
 
     return BaseComponent::Update();
 }
@@ -20,6 +20,12 @@ bool Emoji::Update() {
 Emoji::Emoji(Point location, Size s, BaseComponent *p)  : BaseComponent(location, s,p) {
     ESP_LOGI(MODULE, "Init");
     buffer = RGB8::MakeMartix(s);
+
+    alpha = new uint8_t *[s.w];
+    for(int i = 0; i < s.w; i++) {
+        alpha[i] = new uint8_t [s.h];
+    }
+
     ESP_LOGI(MODULE, "Emoji at %s", drawer->GetAbsolutLocation().toString().c_str());
 
 }
@@ -50,7 +56,7 @@ bool Emoji::SetEmoji(EmojiName e) {
     ESP_LOGI(MODULE, "Location is %s", location.toString().c_str());
 
 
-    PngReadPart(EMOJI_FILE, location, s, buffer);
+    PngReadPart(EMOJI_FILE, location, s, buffer, alpha);
 
     dirty = true;
 

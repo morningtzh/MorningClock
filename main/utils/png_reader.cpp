@@ -55,7 +55,7 @@ int PngReadAll(const char *path)
     return 0;
 }
 
-int PngReadPart(const char *path, Point &p, Size &s, RGB8 **buffer)
+int PngReadPart(const char *path, Point &p, Size &s, RGB8 **buffer, uint8_t **alpha)
 {
     FILE *fp_read = fopen(path, "rb");
     if (fp_read == nullptr) {
@@ -90,6 +90,21 @@ int PngReadPart(const char *path, Point &p, Size &s, RGB8 **buffer)
     switch (color_type)
     {
         case PNG_COLOR_TYPE_RGB_ALPHA:
+        {
+            for (int j = 0; j < s.h; j++)
+            {
+                for (int i = 0; i < s.w; i++)
+                {
+                    buffer[(s.h-1)-j][i].r = row_pointers[i + p.y][4 * (j + p.x) + 0];
+                    buffer[(s.h-1)-j][i].g = row_pointers[i + p.y][4 * (j + p.x) + 1];
+                    buffer[(s.h-1)-j][i].b = row_pointers[i + p.y][4 * (j + p.x) + 2];
+                    if (alpha != nullptr) {
+                        alpha[(s.h - 1) - j][i] = row_pointers[i + p.y][4 * (j + p.x) + 3];
+                    }
+                }
+            }
+            break;
+        }
         case PNG_COLOR_TYPE_RGB:
         {
             for (int j = 0; j < s.h; j++)

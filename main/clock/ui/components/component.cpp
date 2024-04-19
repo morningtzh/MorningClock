@@ -12,7 +12,7 @@
 
 bool BaseComponent::Update() {
 
-    for (auto c:sons) {
+    for (auto c: sons) {
         c->Update();
     }
 
@@ -22,7 +22,7 @@ bool BaseComponent::Update() {
 }
 
 BaseComponent::~BaseComponent() {
-    for (auto c:sons) {
+    for (auto c: sons) {
         delete c;
     }
 
@@ -61,14 +61,12 @@ Drawer *Drawer::Sub(Point relativeLocation, Size size) {
         ESP_LOGE(MODULE, "Create sub drawer is bigger %s:%s than self %s",
                  relativeLocation.toString().c_str(), size.toString().c_str(),
                  _size.toString().c_str()
-                 );
+        );
         return nullptr;
     }
 
     return new Drawer(_absolutLocation + relativeLocation, relativeLocation, size, buffer);
 }
-
-
 
 bool Drawer::DrawRGB(Point &p, RGB8 &rgb) {
 
@@ -84,7 +82,7 @@ bool Drawer::DrawRGB(Point &p, RGB8 &rgb) {
     return true;
 }
 
-bool Drawer::DrawBuffer(const Size &s, RGB8 **b) {
+bool Drawer::DrawBuffer(const Size &s, RGB8 **b, uint8_t **alpha) {
 
     if (s >= _size) {
         ESP_LOGE(MODULE, "draw buffer %s outside %s", s.toString().c_str(), _size.toString().c_str());
@@ -93,12 +91,14 @@ bool Drawer::DrawBuffer(const Size &s, RGB8 **b) {
 
     for (int i = 0; i < s.w; ++i) {
         for (int j = 0; j < s.h; ++j) {
-            auto absolutionPoint = _absolutLocation + Point(i,j);
+            if (alpha && alpha[i][j] == 0) {
+                continue;
+            }
+            auto absolutionPoint = _absolutLocation + Point(i, j);
 
             memcpy(&(buffer[absolutionPoint.x][absolutionPoint.y]), &(b[i][j]), sizeof(RGB8));
         }
     }
-
 
     return true;
 }
@@ -122,32 +122,35 @@ const Point &Drawer::GetRelativeLocation() {
     return _relativeLocation;
 }
 
+bool Drawer::Clear() {
+    for (int i = 0; i < _size.w; ++i) {
+        for (int j = 0; j < _size.h; ++j) {
+            auto absolutionPoint = _absolutLocation + Point(i, j);
+            memset((void *)&(buffer[absolutionPoint.x][absolutionPoint.y]), 0, sizeof(RGB8));
+        }
+    }
+    return true;
+}
 
 bool MainComponent::Update() {
 
-//    for (int i = 0; i < GetSize().w; ++i) {
-//        for (int j = 0; j < GetSize().h; ++j) {
-//            auto p = Point(i,j);
-//            RGB8 rgb(2 * (j + i * GetSize().w), 10, 10);
-//            drawer->DrawRGB(p, rgb);
-//        }
-//    }
+    drawer->Clear();
 
     for (int i = 0; i < GetSize().w; ++i) {
-        auto p = Point(i,0);
+        auto p = Point(i, 0);
         RGB8 rgb(10, 100, 10);
         drawer->DrawRGB(p, rgb);
 
-        p = Point(i,GetSize().h -1);
+        p = Point(i, GetSize().h - 1);
         drawer->DrawRGB(p, rgb);
     }
 
     for (int i = 0; i < GetSize().h; ++i) {
-        auto p = Point(0,i);
+        auto p = Point(0, i);
         RGB8 rgb(100, 10, 10);
         drawer->DrawRGB(p, rgb);
 
-        p = Point(GetSize().w -1, i);
+        p = Point(GetSize().w - 1, i);
         drawer->DrawRGB(p, rgb);
     }
 
@@ -156,16 +159,16 @@ bool MainComponent::Update() {
 
 bool CPoint::Update() {
 
-    auto p = Point(0,0);
+    auto p = Point(0, 0);
     drawer->DrawRGB(p, rgb);
 
     return BaseComponent::Update();
 }
 
 void CPoint::SetColor(uint8_t r, uint8_t g, uint8_t b) {
-rgb.r = r;
-rgb.g = g;
-rgb.b = b;
+    rgb.r = r;
+    rgb.g = g;
+    rgb.b = b;
 }
 
 CPoint::CPoint(Point location, Size s, BaseComponent *p) : BaseComponent(location, s, p) {
