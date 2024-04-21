@@ -22,9 +22,9 @@ configure_file(main/utils/global.hpp.in ../main/utils/global.hpp)
 MESSAGE("End Config")
 
 MESSAGE("IDF" $ENV{IDF_PATH})
-MESSAGE("IDF" $idf_path)
-MESSAGE("IDF" $ENV{IDF_PATH})
+MESSAGE("ADF" $ENV{ADF_PATH})
 
+include($ENV{ADF_PATH}/CMakeLists.txt)
 include($ENV{IDF_PATH}/tools/cmake/project.cmake)
 #include(/Users/morningtzh/esp/v5.2.1/esp-idf/tools/cmake/project.cmake)
 project(MorningRing)

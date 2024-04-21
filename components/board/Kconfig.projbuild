@@ -1,0 +1,15 @@
+menu "MorningClock Board"
+
+choice CUSTOMER_AUDIO_BOARD
+    prompt "MorningClock board"
+    default MORNINGCLOCK
+    help
+        Select an audio board to use with the ESP-ADF
+
+config MORNINGCLOCK
+    bool "MorningClock"
+
+endchoice
+
+endmenu
+

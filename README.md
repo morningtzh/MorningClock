@@ -30,3 +30,20 @@ fork from [MorningRing](https://github.com/morningtzh/MorningRing)
       - WEB简易控制端
    - 点阵屏控制
       - UI模块
+
+## 开发方式
+
+ESP-IDF: v5.2.1  
+ESP-ADF: master > 2.6 (使用master，暂无新版本，目前最新版本2.6无法匹配 idf 5.2)
+
+``` bash
+# macOS
+1. 清除旧环境
+rm -rf ~/.espressif
+rm -rf ~/esp/*
+git clone --recursive https://github.com/espressif/esp-adf.git
+cd esp-adf/esp-idf 
+git checkout v5.2.1
+git submodule update --init --recursive --depth 1
+cd .. && sh install.sh
+```
