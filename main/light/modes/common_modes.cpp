@@ -48,7 +48,7 @@ namespace light::mode {
                         return false;
                     }
 
-                    int index = i * screen->size.h + j;
+                    int index = ((screen->size.w - 1) - i) * screen->size.h + j;
                     lightBuffer.SetRGB(INSIDE_RING, index, rgb);
                 }
             }

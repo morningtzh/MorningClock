@@ -55,7 +55,7 @@ int PngReadAll(const char *path)
     return 0;
 }
 
-int PngReadPart(const char *path, Point &p, Size &s, RGB8 **buffer)
+int PngReadPart(const char *path, const Point &p, const Size &s, RGB8 **buffer)
 {
     FILE *fp_read = fopen(path, "rb");
     if (fp_read == nullptr) {
@@ -95,13 +95,16 @@ int PngReadPart(const char *path, Point &p, Size &s, RGB8 **buffer)
             {
                 for (int i = 0; i < s.w; i++)
                 {
-                    if (row_pointers[i + p.y][4 * (j + p.x) + 3] == 3) {
-                        buffer[(s.h-1)-j][i].mask = true;
+                    // Buffer使用xy坐标，PNG使用行列模式
+                    // 两者转换为 x = 列；y=行
+                    if (row_pointers[j + p.y][4 * (i + p.x) + 3] == 0) {
+                        buffer[i][j].mask = true;
+                        continue;
                     }
-                    buffer[(s.h-1)-j][i].mask = false;
-                    buffer[(s.h-1)-j][i].r = row_pointers[i + p.y][4 * (j + p.x) + 0];
-                    buffer[(s.h-1)-j][i].g = row_pointers[i + p.y][4 * (j + p.x) + 1];
-                    buffer[(s.h-1)-j][i].b = row_pointers[i + p.y][4 * (j + p.x) + 2];
+                    buffer[i][j].mask = false;
+                    buffer[i][j].r = row_pointers[j + p.y][4 * (i + p.x) + 0];
+                    buffer[i][j].g = row_pointers[j + p.y][4 * (i + p.x) + 1];
+                    buffer[i][j].b = row_pointers[j + p.y][4 * (i + p.x) + 2];
                 }
             }
             break;
@@ -123,7 +126,7 @@ int PngReadPart(const char *path, Point &p, Size &s, RGB8 **buffer)
             break;
     }
 
-    png_destroy_read_struct(&png_read, &infop_read, 0);
+    png_destroy_read_struct(&png_read, &infop_read, nullptr);
 
     fclose(fp_read);
 
