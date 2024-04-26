@@ -33,7 +33,6 @@ namespace light {
 
         LightBuffer lightBuffer{};
         Ws2812Spi inside2812;
-        Ws2812Spi outside2812;
 
     public:
         Manager();

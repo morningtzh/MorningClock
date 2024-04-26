@@ -14,8 +14,7 @@ namespace light {
 #define EXAMPLE_CHASE_SPEED_MS 10
 
     Manager::Manager() :
-            inside2812(GPIO_NUM_13, LIGHT_INSIDE_POINTS, lightBuffer.inside),
-            outside2812(GPIO_NUM_12, LIGHT_OUTSIDE_POINTS, lightBuffer.outside) {}
+            inside2812(GPIO_NUM_14, LIGHT_INSIDE_POINTS, lightBuffer.inside){}
 
     std::list<std::string> Manager::GetModeList() {
         std::list<std::string> list;
@@ -107,7 +106,6 @@ namespace light {
 
     void Manager::TxWs2812() {
         inside2812.led_strip_update();
-        outside2812.led_strip_update();
     }
 
     Manager *manager() {

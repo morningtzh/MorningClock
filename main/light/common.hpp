@@ -21,7 +21,7 @@
 namespace light {
 
     const int LIGHT_INSIDE_POINTS = 64 * 4;
-    const int LIGHT_OUTSIDE_POINTS = 184;
+    const int LIGHT_OUTSIDE_POINTS = 0;
 
     struct LightBuffer {
         // RGB三倍buffer
