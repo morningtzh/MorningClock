@@ -45,13 +45,13 @@ bool Emoji::SetEmoji(EmojiName e) {
 
     emoji = e;
 
-    Point location = CalcLocation(e);
+    Point _location = CalcLocation(e);
     Size s(8,8);
 
-    ESP_LOGI(MODULE, "Location is %s", location.toString().c_str());
+    ESP_LOGI(MODULE, "Location is %s", _location.toString().c_str());
 
 
-    PngReadPart(EMOJI_FILE, location, s, buffer);
+    PngReadPart(EMOJI_FILE, _location, s, buffer);
 
     dirty = true;
 
@@ -63,7 +63,7 @@ EmojiTest::EmojiTest(Point location, Size s, BaseComponent *p) : BaseComponent(l
     e = new Emoji(location, s, p);
     e->SetEmoji(emoji);
 
-    AddComponent(e);
+    AddComponent("emoji", e);
 }
 
 bool EmojiTest::Update() {

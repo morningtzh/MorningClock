@@ -6,6 +6,7 @@
 #define MORNINGRING_COMPONENT_HPP
 
 #include <list>
+#include <map>
 
 #include "../../../base.hpp"
 
@@ -70,7 +71,7 @@ public:
 
 class BaseComponent {
 private:
-    std::list<BaseComponent *>  sons;
+    std::map<std::string,BaseComponent *>  sons;
 
 protected:
     bool dirty = true;
@@ -90,7 +91,7 @@ public:
         return dirty;
     }
 
-    bool AddComponent(BaseComponent *son);
+    bool AddComponent(const std::string &name, BaseComponent *son);
 
 //    template<typename T>
 //    bool AddComponent<T>(Point &location, Size &size);

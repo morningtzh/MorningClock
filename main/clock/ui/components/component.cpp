@@ -13,7 +13,7 @@
 bool BaseComponent::Update() {
 
     for (auto c: sons) {
-        c->Update();
+        c.second->Update();
     }
 
     dirty = false;
@@ -23,7 +23,7 @@ bool BaseComponent::Update() {
 
 BaseComponent::~BaseComponent() {
     for (auto c: sons) {
-        delete c;
+        delete c.second;
     }
 
     delete drawer;
@@ -33,14 +33,14 @@ const Size &BaseComponent::GetSize() {
     return drawer->GetSize();
 }
 
-bool BaseComponent::AddComponent(BaseComponent *son) {
+bool BaseComponent::AddComponent(const std::string &name, BaseComponent *son) {
 
     if (son->drawer == nullptr) {
         ESP_LOGE("aa", "AddComponent failed,");
         return false;
     }
 
-    sons.emplace_back(son);
+    sons[name]=son;
 
     return true;
 }
